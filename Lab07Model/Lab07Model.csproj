@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="NorthWind">
       <HintPath>..\..\Documentos_Diplomado\MODULO 2\Leccion 2\Labs\Lab07\NorthWind.dll</HintPath>
     </Reference>
