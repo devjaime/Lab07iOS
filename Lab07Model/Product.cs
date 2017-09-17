@@ -2,9 +2,8 @@
 
 namespace Lab07Model
 {
-    public class Product:IProduct 
+    public class Product: IProduct 
     {
-        #region Implementa IProduct
         public int ProductID { get; set ; }
         public string ProductName { get; set; }
         public int? SupplierID { get; set; }
@@ -15,6 +14,5 @@ namespace Lab07Model
         public short? UnitsOnOrder { get; set; }
         public short? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
-        #endregion
     }
 }

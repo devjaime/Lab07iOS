@@ -13,7 +13,13 @@ namespace Lab07Model
 
         public event ChangeStatusEventHandler ChangeStatus;
 
-        public async Task<IProduct> GetProductByIDAsync(int ID)
+        public Task<IProduct> GetProductByIDAsync(int ID)
+        {
+            var result = GetProductByIDAsync(ID,"");
+            return result;
+        }
+
+        public async Task<IProduct> GetProductByIDAsync(int ID, string test ="")
         {
             Product MyProduct = null;
             using (var Client = new System.Net.Http.HttpClient())
@@ -59,12 +65,12 @@ namespace Lab07Model
             return MyProduct;
         }
     }
-
-    //enum StatusOptions
-    //{
-    //CallingWebApi     -> El momento en que la api web sera invocada
-    //VerifyingResult   -> El momento en que se va a procesar la respuesta de la api web
-    //ProductFound      -> El momento en que se verifico que el producto fué encontrado
-    //ProductNotFound   -> El momento en que se verifico que el producto no fué encontrado
-    //}
 }
+
+//enum StatusOptions
+//{
+//CallingWebApi     -> El momento en que la api web sera invocada
+//VerifyingResult   -> El momento en que se va a procesar la respuesta de la api web
+//ProductFound      -> El momento en que se verifico que el producto fué encontrado
+//ProductNotFound   -> El momento en que se verifico que el producto no fué encontrado
+//}
