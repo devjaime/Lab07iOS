@@ -12,6 +12,9 @@
     <Reference Include="NorthWind">
       <HintPath>..\..\Documentos_Diplomado\MODULO 2\Leccion 2\Labs\Lab07\NorthWind.dll</HintPath>
     </Reference>
+    <Reference Include="SALLab07">
+      <HintPath>..\..\Documentos_Diplomado\MODULO 2\Leccion 2\Labs\Lab07\SALLab07.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

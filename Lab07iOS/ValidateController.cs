@@ -9,5 +9,18 @@ namespace Lab07iOS
         public ValidateController (IntPtr handle) : base (handle)
         {
         }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            ButtonValidarActividad.TouchUpInside += (sender, e) =>
+            {
+                var Client = new SALLab07.ServiceClient();
+                // TODO : Continuar con la validacion
+            };
+            
+
+        }
     }
 }

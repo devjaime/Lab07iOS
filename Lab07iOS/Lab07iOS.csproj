@@ -103,6 +103,12 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="NorthWind">
+      <HintPath>..\..\Documentos_Diplomado\MODULO 2\Leccion 2\Labs\Lab07\NorthWind.dll</HintPath>
+    </Reference>
+    <Reference Include="SALLab07">
+      <HintPath>..\..\Documentos_Diplomado\MODULO 2\Leccion 2\Labs\Lab07\SALLab07.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -110,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lab07Model\Lab07Model.csproj">
+      <Project>{9dc77bfe-2731-49dd-b76e-cb6da5e7c204}</Project>
+      <Name>Lab07Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

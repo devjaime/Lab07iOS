@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab07Android
 {
-    [Activity(Label = "Lab07Android", MainLauncher = true)]
+    [Activity(Label = "BuscarProducto", MainLauncher = true)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -43,7 +43,27 @@ namespace Lab07Android
             var TextoEstado = FindViewById<TextView>(Resource.Id.TextEstadoActividad);
             Productos.ChangeStatus += (s, e) => 
             {
-                TextoEstado.Text = e.Status.ToString();
+                var EstatusActual = string.Empty;
+                switch (e.Status)
+                {
+                    case NorthWind.StatusOptions.CallingWebAPI:
+                        EstatusActual = "Buscando datos...";
+                        break;
+                    case NorthWind.StatusOptions.VerifyingResult:
+                        EstatusActual = "Procesando datos...";
+                        break;
+                    case NorthWind.StatusOptions.ProductFound:
+                        EstatusActual = "Producto encontrado";
+                        break;
+                    case NorthWind.StatusOptions.ProductNotFound:
+                        EstatusActual = "Producto no encontrado";
+                        break;
+                    default:
+                        EstatusActual = "";
+                        break;
+                }
+
+                TextoEstado.Text = EstatusActual;
             };
             return await Productos.GetProductByIDAsync(productId) as Product;
         }

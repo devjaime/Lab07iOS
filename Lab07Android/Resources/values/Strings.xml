@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Lab07Android</string>
+  <string name="ApplicationName">Buscar Producto</string>
+  <string name="app_name">Buscar Producto</string>
+  <string name="BtnBuscar">Buscar</string>
 </resources>
