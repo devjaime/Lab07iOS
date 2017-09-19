@@ -42,7 +42,7 @@ namespace Lab07Model
                 changeStatus.Status = StatusOptions.VerifyingResult;
                 ChangeStatus?.Invoke(this, changeStatus);
 
-                System.Threading.Thread.Sleep(1000); // Pause 1 sec
+                //System.Threading.Thread.Sleep(1000); // Pause 1 sec
 
                 if (Response.IsSuccessStatusCode)
                 {

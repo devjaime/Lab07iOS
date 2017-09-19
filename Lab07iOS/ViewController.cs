@@ -15,39 +15,14 @@ namespace Lab07iOS
         {
         }
 
+        Lab07Model.Products Productos = null;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            // Validar actividad
-            BtnValidarActividad.TouchUpInside += (sender, e) =>
-            {
-                if (this.Storyboard.InstantiateViewController("ValidateController") is ValidateController Controller)
-                {
-                    this.NavigationController.PushViewController(Controller, true);
-                }
-            };
-
-            // Buscar !!! Id de producto a  buscar
-            BtnBuscar.TouchUpInside += async (sender, ev) =>
-            {
-                var IdProducto = IDNumber.Text.ToString();
-
-                var ResultProduct = await BuscaProductAsync(int.Parse(IdProducto));
-
-                TextNombre.Text = ResultProduct.ProductName;
-                TextPrecio.Text = ResultProduct.UnitPrice.ToString();
-                TextExistencia.Text = ResultProduct.UnitsInStock.ToString();
-                TextCategoria.Text = ResultProduct.CategoryID.ToString();
-
-            };
-        }
-
-        private async Task<Product> BuscaProductAsync(int productId)
-        {
-            var Productos = new Products();
-            
+            Productos = new Lab07Model.Products();
             Productos.ChangeStatus += (s, e) =>
             {
                 var EstatusActual = string.Empty;
@@ -69,10 +44,46 @@ namespace Lab07iOS
                         EstatusActual = "";
                         break;
                 }
-
                 LabelEstadoActividad.Text = EstatusActual;
             };
 
+            // Navegacion hacia Validar actividad
+            BtnValidarActividad.TouchUpInside += (sender, e) =>
+            {
+                if (this.Storyboard.InstantiateViewController("ValidateController") is ValidateController Controller)
+                {
+                    this.NavigationController.PushViewController(Controller, true);
+                }
+            };
+
+            // Buscar producto por Id !
+            BtnBuscar.TouchUpInside += async (sender, ev) =>
+            {
+                var IdProducto = this.IDNumber.Text;
+                //Lab07Model.Product ResultProduct = await BuscaProductAsync(int.Parse(IdProducto));
+                try
+                {
+                    Lab07Model.Product ResultProduct = await Productos.GetProductByIDAsync(int.Parse(IdProducto)) as Product;
+                    this.TextNombre.Text = ResultProduct.ProductName;
+                    this.TextPrecio.Text = ResultProduct.UnitPrice.ToString();
+                    this.TextExistencia.Text = ResultProduct.UnitsInStock.ToString();
+                    this.TextCategoria.Text = ResultProduct.CategoryID.ToString();
+                }
+                catch (Exception excpt)
+                {
+                    var Alert = UIAlertController.Create("Exception",
+                    $"{excpt.Message}\n",
+                    UIAlertControllerStyle.Alert);
+                    Alert.AddAction(UIAlertAction.Create("Ok",
+                        UIAlertActionStyle.Default,
+                        null));
+                    PresentViewController(Alert, true, null);
+                }
+            };
+        }
+
+        private async Task<Lab07Model.Product> BuscaProductAsync(int productId)
+        {
             return await Productos.GetProductByIDAsync(productId) as Product;
         }
 

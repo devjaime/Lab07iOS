@@ -29,7 +29,7 @@ namespace Lab07iOS
                 var Alert = UIAlertController.Create("Resultado", 
                     $"{Result.Status}\n{Result.FullName}\n{Result.Token}", 
                     UIAlertControllerStyle.Alert);
-                Alert.AddAction(UIAlertAction.Create("", 
+                Alert.AddAction(UIAlertAction.Create("Ok", 
                     UIAlertActionStyle.Default, 
                     null));
                 PresentViewController(Alert, true, null);
