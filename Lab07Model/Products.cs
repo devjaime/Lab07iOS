@@ -68,11 +68,3 @@ namespace Lab07Model
         }
     }
 }
-
-//enum StatusOptions
-//{
-//CallingWebApi     -> El momento en que la api web sera invocada
-//VerifyingResult   -> El momento en que se va a procesar la respuesta de la api web
-//ProductFound      -> El momento en que se verifico que el producto fué encontrado
-//ProductNotFound   -> El momento en que se verifico que el producto no fué encontrado
-//}

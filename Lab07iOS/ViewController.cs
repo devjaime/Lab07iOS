@@ -29,10 +29,10 @@ namespace Lab07iOS
                 }
             };
 
-            // Busacr !!! Id de producto a  buscar
-            BtnBuscar.TouchUpInside += async(sender, e) =>
+            // Buscar !!! Id de producto a  buscar
+            BtnBuscar.TouchUpInside += async (sender, ev) =>
             {
-                string IdProducto = this.IDNumber.ToString();
+                var IdProducto = IDNumber.Text.ToString();
 
                 var ResultProduct = await BuscaProductAsync(int.Parse(IdProducto));
 
@@ -47,7 +47,7 @@ namespace Lab07iOS
         private async Task<Product> BuscaProductAsync(int productId)
         {
             var Productos = new Products();
-            var TextoEstado = LabelEstadoActividad;
+            
             Productos.ChangeStatus += (s, e) =>
             {
                 var EstatusActual = string.Empty;
@@ -70,8 +70,9 @@ namespace Lab07iOS
                         break;
                 }
 
-                TextoEstado.Text = EstatusActual;
+                LabelEstadoActividad.Text = EstatusActual;
             };
+
             return await Productos.GetProductByIDAsync(productId) as Product;
         }
 
