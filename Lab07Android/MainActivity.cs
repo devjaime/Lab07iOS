@@ -44,26 +44,27 @@ namespace Lab07Android
             Productos.ChangeStatus += (s, e) => 
             {
                 var EstatusActual = string.Empty;
-                switch (e.Status)
-                {
-                    case NorthWind.StatusOptions.CallingWebAPI:
-                        EstatusActual = "Buscando datos...";
-                        break;
-                    case NorthWind.StatusOptions.VerifyingResult:
-                        EstatusActual = "Procesando datos...";
-                        break;
-                    case NorthWind.StatusOptions.ProductFound:
-                        EstatusActual = "Producto encontrado";
-                        break;
-                    case NorthWind.StatusOptions.ProductNotFound:
-                        EstatusActual = "Producto no encontrado";
-                        break;
-                    default:
-                        EstatusActual = "";
-                        break;
-                }
+                //switch (e.Status)
+                //{
+                //    case NorthWind.StatusOptions.CallingWebAPI:
+                //        EstatusActual = "Buscando datos...";
+                //        break;
+                //    case NorthWind.StatusOptions.VerifyingResult:
+                //        EstatusActual = "Procesando datos...";
+                //        break;
+                //    case NorthWind.StatusOptions.ProductFound:
+                //        EstatusActual = "Producto encontrado";
+                //        break;
+                //    case NorthWind.StatusOptions.ProductNotFound:
+                //        EstatusActual = "Producto no encontrado";
+                //        break;
+                //    default:
+                //        EstatusActual = "";
+                //        break;
+                //}
 
                 TextoEstado.Text = EstatusActual;
+                System.Threading.Thread.Sleep(2000); // Pause 1 sec
             };
             return await Productos.GetProductByIDAsync(productId) as Product;
         }

@@ -3,6 +3,7 @@
 using UIKit;
 using Lab07Model;
 using System.Threading.Tasks;
+using NorthWind;
 
 namespace Lab07iOS
 {
@@ -15,37 +16,12 @@ namespace Lab07iOS
         {
         }
 
-        Lab07Model.Products Productos = null;
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
 
-            Productos = new Lab07Model.Products();
-            Productos.ChangeStatus += (s, e) =>
-            {
-                var EstatusActual = string.Empty;
-                switch (e.Status)
-                {
-                    case NorthWind.StatusOptions.CallingWebAPI:
-                        EstatusActual = "Buscando datos...";
-                        break;
-                    case NorthWind.StatusOptions.VerifyingResult:
-                        EstatusActual = "Procesando datos...";
-                        break;
-                    case NorthWind.StatusOptions.ProductFound:
-                        EstatusActual = "Producto encontrado";
-                        break;
-                    case NorthWind.StatusOptions.ProductNotFound:
-                        EstatusActual = "Producto no encontrado";
-                        break;
-                    default:
-                        EstatusActual = "";
-                        break;
-                }
-                LabelEstadoActividad.Text = EstatusActual;
-            };
+            Lab07Model.Products Productos = new Lab07Model.Products();
+            Productos.ChangeStatus += TestMethod; //delegate(object s, ChangeStatusEventArgs e)
 
             // Navegacion hacia Validar actividad
             BtnValidarActividad.TouchUpInside += (sender, e) =>
@@ -82,9 +58,31 @@ namespace Lab07iOS
             };
         }
 
-        private async Task<Lab07Model.Product> BuscaProductAsync(int productId)
+        private void TestMethod(object sender, IChangeStatusEventArgs e)
         {
-            return await Productos.GetProductByIDAsync(productId) as Product;
+            {
+                var EstatusActual = (e as ChangeStatusEventArgs).MessageDeStatus;//string.Empty;
+                //switch (e.Status)
+                //{
+                //    case NorthWind.StatusOptions.CallingWebAPI:
+                //        EstatusActual = "Buscando datos...";
+                //        break;
+                //    case NorthWind.StatusOptions.VerifyingResult:
+                //        EstatusActual = "Procesando datos...";
+                //        break;
+                //    case NorthWind.StatusOptions.ProductFound:
+                //        EstatusActual = "Producto encontrado";
+                //        break;
+                //    case NorthWind.StatusOptions.ProductNotFound:
+                //        EstatusActual = "Producto no encontrado";
+                //        break;
+                //    default:
+                //        EstatusActual = "";
+                //        break;
+                //}
+                LabelEstadoActividad.Text = EstatusActual;
+                System.Threading.Thread.Sleep(3000); // Pause 1 sec
+            }
         }
 
         public override void DidReceiveMemoryWarning()
