@@ -46,7 +46,7 @@ namespace Lab07Android
                 }
                 else
                 {
-                    FindViewById<TextView>(Resource.Id.TextEstadoActividad).Text = "El Id no es valido, entre un numero.";
+                    FindViewById<TextView>(Resource.Id.TextEstadoActividad).Text = "El Id no es valido o no hay red disponible.";
                 }
             };
         }
