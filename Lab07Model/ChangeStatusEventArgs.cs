@@ -5,7 +5,5 @@ namespace Lab07Model
     public class ChangeStatusEventArgs : IChangeStatusEventArgs
     {
         public StatusOptions Status {get; set;}
-
-        public string MessageDeStatus { get; set; }
     }
 }

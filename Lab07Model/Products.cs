@@ -9,8 +9,6 @@ namespace Lab07Model
 {
     public class Products : INorthWindModel
     {
-        public Product MyProduct { get; private set; }
-
         public event ChangeStatusEventHandler ChangeStatus;
 
         public Task<IProduct> GetProductByIDAsync(int ID)
@@ -32,52 +30,34 @@ namespace Lab07Model
                 ChangeStatusEventArgs changeStatus = new ChangeStatusEventArgs
                 {
                     Status = StatusOptions.CallingWebAPI,
-                    MessageDeStatus = "Buscando datos..."
                 };
-
                 // Notificando que la api web és invocada
                 ChangeStatus?.Invoke(this, changeStatus);
 
                 HttpResponseMessage Response = await Client.GetAsync($"product/{ID}");
 
-                //if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-                //{
-                //    // Notificando que se va a verificar el resultado de la llamada
-                //    changeStatus.Status = StatusOptions.VerifyingResult;
-                //    changeStatus.MessageDeStatus = "Processando el resultado...";
+                changeStatus.Status = StatusOptions.VerifyingResult;
+                ChangeStatus?.Invoke(this, changeStatus);
 
-                //    ChangeStatus?.Invoke(this, changeStatus);
-                //    System.Threading.Thread.Sleep(2000); // Pause 1 sec
-                //}
-
-                
+                await Task.Delay(1000); // Simulando el procesamiento
 
                 if (Response.IsSuccessStatusCode)
                 {
-                    changeStatus.Status = StatusOptions.VerifyingResult;
-                    changeStatus.MessageDeStatus = "Processando el resultado...";
-
-                    ChangeStatus?.Invoke(this, changeStatus);
-
 
                     var JSONProduct = await Response.Content.ReadAsStringAsync();
 
-                    MyProduct = JsonConvert.DeserializeObject<Product>(JSONProduct);                    
+                    MyProduct = JsonConvert.DeserializeObject<Product>(JSONProduct);
 
                     if (MyProduct != null)
                     {
                         // Notificando que el producto fué encontrado
                         changeStatus.Status = StatusOptions.ProductFound;
-                        changeStatus.MessageDeStatus = "Producto encontrado.";
-
                         ChangeStatus?.Invoke(this, changeStatus);
                     }
                     else
                     {
                         // Notificando que el producto no fué encontrado
                         changeStatus.Status = StatusOptions.ProductNotFound;
-                        changeStatus.MessageDeStatus = "Producto no encontrado.";
-
                         ChangeStatus?.Invoke(this, changeStatus);
                         MyProduct = null;
                     }
